@@ -1,54 +1,27 @@
 {
     "common": {
-        "name": "template",
+        "name": "tinkerforge",
         "version": "0.0.1",
         "news": {
             "0.0.1": {
                 "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "de": "Erstveröffentlichung"
             }
         },
-        "title": "Template (JavaScript)",
+        "title": "Tinkerforge",
         "titleLang": {
-            "en": "Template (JavaScript)",
-            "de": "Vorlage (JavaScript)",
-            "ru": "Шаблон (JavaScript)",
-            "pt": "Template (JavaScript)",
-            "nl": "Sjabloon (JavaScript)",
-            "fr": "Modèle (JavaScript)",
-            "it": "Template (JavaScript)",
-            "es": "Plantilla (JavaScript)",
-            "pl": "Szablon (JavaScript)",
-            "zh-cn": "模板（JavaScript）"
+            "en": "Tinkerforge",
+            "de": "Tinkerforge"
         },
         "desc": {
-            "en": "Template for adapter development",
-            "de": "Vorlage für die Adapterentwicklung",
-            "ru": "Шаблон для разработки адаптера",
-            "pt": "Modelo para desenvolvimento de adaptador",
-            "nl": "Sjabloon voor ontwikkeling van adapters",
-            "fr": "Modèle pour le développement de l'adaptateur",
-            "it": "Modello per lo sviluppo dell'adattatore",
-            "es": "Plantilla para desarrollo de adaptadores.",
-            "pl": "Szablon do rozwoju adaptera",
-            "zh-cn": "适配器开发模板"
+            "en": "Adapter for Tinkerforge",
+            "de": "Adapter für Tinkerforge"
         },
         "authors": [
-            "Author <author@mail.com>"
+            "Marco Kaminski <marco.kaminski@t-online.de>"
         ],
         "keywords": [
-            "ioBroker",
-            "template",
-            "Smart Home",
-            "home automation"
+            "tinkerforge"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
@@ -66,16 +39,8 @@
         "adminTab": {
             "singleton": true,
             "name": {
-                "en": "Template (JavaScript)",
-                "de": "Vorlage (JavaScript)",
-                "ru": "Шаблон (JavaScript)",
-                "pt": "Template (JavaScript)",
-                "nl": "Sjabloon (JavaScript)",
-                "fr": "Modèle (JavaScript)",
-                "it": "Template (JavaScript)",
-                "es": "Plantilla (JavaScript)",
-                "pl": "Szablon (JavaScript)",
-                "zh-cn": "模板（JavaScript）"
+                "en": "Tinkerforge",
+                "de": "Tinkerforge"
             },
             "link": "",
             "fa-icon": "info"
