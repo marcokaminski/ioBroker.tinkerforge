@@ -19,7 +19,8 @@
     "url": "https://github.com/Author/ioBroker.template"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3"
+    "@iobroker/adapter-core": "^1.0.3",
+    "tinkerforge": "^2.1.23"
   },
   "devDependencies": {
     "@iobroker/testing": "^1.2.5",

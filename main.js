@@ -12,7 +12,6 @@ const utils = require('@iobroker/adapter-core');
 const tf = require("tinkerforge");
 
 class Tinkerforge extends utils.Adapter {
-
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
@@ -55,6 +54,23 @@ class Tinkerforge extends utils.Adapter {
             },
             native: {},
         });
+
+        var tfcon = new tf.IPConnection();
+        tfcon.connect("192.168.0.26", 4223, function (error) {
+                this.log.error('Connecting Hiost 1 Error: ' + error);
+            }
+        ); // Connect to brickd
+
+        tfcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
+            function (connectReason) {
+                this.log.info('Connected to Host 1');
+
+                setTimeout(function () {
+                    this.log.info('Disconnect Host 1');
+                    tfcon.disconnect();
+                }, 30000);
+            }
+        );
 
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates('*');
