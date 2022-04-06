@@ -35,8 +35,8 @@ class ioTinkerforge extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info('config option1: ' + this.config.option1);
-        this.log.info('config option2: ' + this.config.option2);
+        this.log.info('config ip: ' + this.config.ip);
+        this.log.info('config port: ' + this.config.port);
 
         /*
         For every state in the system there has to be also an object of type state
@@ -56,16 +56,16 @@ class ioTinkerforge extends utils.Adapter {
         });
 
         var tfcon = new tf.IPConnection();
-        tfcon.connect("192.168.0.26", 4223, (error) => {
+        tfcon.connect(this.config.ip, this.config.port, (error) => {
                 this.log.error('Connecting Host 1 Error: ' + error);
             }
         ); // Connect to brickd
 
         tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, (connectReason) => {
-                this.log.info('Connected to Host 1');
+                this.log.info('Connected to ' + this.config.ip);
 
                 setTimeout(() => {
-                    this.log.info('Disconnect Host 1');
+                    this.log.info('Disconnect from ' + this.config.ip);
                     tfcon.disconnect();
                 }, 30000);
             }
