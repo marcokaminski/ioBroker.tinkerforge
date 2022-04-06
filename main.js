@@ -9,7 +9,7 @@
 const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-var tf = require("tinkerforge");
+const tf = require('tinkerforge');
 
 class ioTinkerforge extends utils.Adapter {
     /**
@@ -29,12 +29,12 @@ class ioTinkerforge extends utils.Adapter {
         this.tfcon = new tf.IPConnection();
         this.tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, () => {
             this.log.info('Connected to ' + this.config.ip);
+            this.enumerateBricklets();
         });
 
         this.tfcon.on(tf.IPConnection.CALLBACK_DISCONNECTED, () => {
             this.log.info('Disconnected from ' + this.config.ip);
         });
-
     }
 
     /**
@@ -94,11 +94,33 @@ class ioTinkerforge extends utils.Adapter {
         this.log.info('check group user admin group admin: ' + result);
     }
 
+
     connectToBrick(autoReconnect) {
         this.tfcon.setAutoReconnect(autoReconnect);
         this.tfcon.connect(this.config.ip, this.config.port, (error) => {
             this.log.error('Connecting Host ' + this.config.ip + ':' + this.config.port + ' Error: ' + error);
         }); // Connect to brickd
+    }
+
+    enumerateBricklets() {
+        this.tfcon.enumerate();
+
+        // Register Enumerate Callback
+        this.tfcon.on(tf.IPConnection.CALLBACK_ENUMERATE, (uid, connectedUid, position, hardwareVersion, firmwareVersion, deviceIdentifier, enumerationType) => {
+            // Print incoming enumeration
+            this.log.info('UID:               '+uid);
+            this.log.info('Enumeration Type:  '+enumerationType);
+
+            if(enumerationType === tf.IPConnection.ENUMERATION_TYPE_DISCONNECTED) {
+                return;
+            }
+
+            this.log.info('Connected UID:     '+connectedUid);
+            this.log.info('Position:          '+position);
+            this.log.info('Hardware Version:  '+hardwareVersion);
+            this.log.info('Firmware Version:  '+firmwareVersion);
+            this.log.info('Device Identifier: '+deviceIdentifier);
+        });
     }
 
     /**
@@ -107,6 +129,7 @@ class ioTinkerforge extends utils.Adapter {
      */
     onUnload(callback) {
         try {
+            this.tfcon.disconnect();
             this.log.info('cleaned everything up...');
             callback();
         } catch (e) {
