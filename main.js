@@ -11,7 +11,7 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
 
-class ioTinkerforge extends utils.Adapter {
+class Tinkerforge extends utils.Adapter {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
@@ -120,6 +120,33 @@ class ioTinkerforge extends utils.Adapter {
             this.log.info('Hardware Version:  '+hardwareVersion);
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
+
+            if (deviceIdentifier === 297) {
+                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
+
+                bricklet.getAllValues((iaqIndex, iaqIndexAccuracy, temperature, humidity, airPressure) => {
+                    this.log.info('IAQ Index: ' + iaqIndex);
+
+                    if(iaqIndexAccuracy === tf.BrickletAirQuality.ACCURACY_UNRELIABLE) {
+                        this.log.info('IAQ Index Accuracy: Unreliable');
+                    }
+                    else if(iaqIndexAccuracy === tf.BrickletAirQuality.ACCURACY_LOW) {
+                        this.log.info('IAQ Index Accuracy: Low');
+                    }
+                    else if(iaqIndexAccuracy === tf.BrickletAirQuality.ACCURACY_MEDIUM) {
+                        this.log.info('IAQ Index Accuracy: Medium');
+                    }
+                    else if(iaqIndexAccuracy === tf.BrickletAirQuality.ACCURACY_HIGH) {
+                        this.log.info('IAQ Index Accuracy: High');
+                    }
+    
+                    this.log.info('Temperature: ' + temperature/100.0 + ' °C');
+                    this.log.info('Humidity: ' + humidity/100.0 + ' %RH');
+                    this.log.info('Air Pressure: ' + airPressure/100.0 + ' hPa');
+                }, (error) => {
+                    this.log.error('Error: ' + error);
+                });
+            }
         });
     }
 
@@ -192,8 +219,8 @@ if (module.parent) {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
-    module.exports = (options) => new ioTinkerforge(options);
+    module.exports = (options) => new Tinkerforge(options);
 } else {
     // otherwise start the instance directly
-    new ioTinkerforge();
+    new Tinkerforge();
 }
