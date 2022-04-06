@@ -57,7 +57,7 @@ class ioTinkerforge extends utils.Adapter {
 
         var tfcon = new tf.IPConnection();
         tfcon.connect(this.config.ip, this.config.port, (error) => {
-                this.log.error('Connecting Host 1 Error: ' + error);
+                this.log.error('Connecting Host ' + this.config.ip + ':' + this.config.port + ' Error: ' + error);
             }
         ); // Connect to brickd
 
