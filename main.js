@@ -25,6 +25,16 @@ class ioTinkerforge extends utils.Adapter {
         this.on('stateChange', this.onStateChange.bind(this));
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
+
+        this.tfcon = new tf.IPConnection();
+        this.tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, () => {
+            this.log.info('Connected to ' + this.config.ip);
+        });
+
+        this.tfcon.on(tf.IPConnection.CALLBACK_DISCONNECTED, () => {
+            this.log.info('Disconnected from ' + this.config.ip);
+        });
+
     }
 
     /**
@@ -37,6 +47,7 @@ class ioTinkerforge extends utils.Adapter {
         // this.config:
         this.log.info('config ip: ' + this.config.ip);
         this.log.info('config port: ' + this.config.port);
+        this.log.info('config autoReconnect: ' + this.config.autoReconnect);
 
         /*
         For every state in the system there has to be also an object of type state
@@ -55,24 +66,11 @@ class ioTinkerforge extends utils.Adapter {
             native: {},
         });
 
-        var tfcon = new tf.IPConnection();
-        tfcon.connect(this.config.ip, this.config.port, (error) => {
-                this.log.error('Connecting Host ' + this.config.ip + ':' + this.config.port + ' Error: ' + error);
-            }
-        ); // Connect to brickd
-
-        tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, (connectReason) => {
-                this.log.info('Connected to ' + this.config.ip);
-
-                setTimeout(() => {
-                    this.log.info('Disconnect from ' + this.config.ip);
-                    tfcon.disconnect();
-                }, 30000);
-            }
-        );
-
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates('*');
+
+        // connect to Tinkerforge Master-Brick
+        this.connectToBrick(this.config.autoReconnect);
 
         /*
         setState examples
@@ -94,6 +92,13 @@ class ioTinkerforge extends utils.Adapter {
 
         result = await this.checkGroupAsync('admin', 'admin');
         this.log.info('check group user admin group admin: ' + result);
+    }
+
+    connectToBrick(autoReconnect) {
+        this.tfcon.setAutoReconnect(autoReconnect);
+        this.tfcon.connect(this.config.ip, this.config.port, (error) => {
+            this.log.error('Connecting Host ' + this.config.ip + ':' + this.config.port + ' Error: ' + error);
+        }); // Connect to brickd
     }
 
     /**
