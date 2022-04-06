@@ -9,9 +9,9 @@
 const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
-const tf = require("tinkerforge");
+var tf = require("tinkerforge");
 
-class Tinkerforge extends utils.Adapter {
+class ioTinkerforge extends utils.Adapter {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
@@ -56,16 +56,15 @@ class Tinkerforge extends utils.Adapter {
         });
 
         var tfcon = new tf.IPConnection();
-        tfcon.connect("192.168.0.26", 4223, function (error) {
-                this.log.error('Connecting Hiost 1 Error: ' + error);
+        tfcon.connect("192.168.0.26", 4223, (error) => {
+                this.log.error('Connecting Host 1 Error: ' + error);
             }
         ); // Connect to brickd
 
-        tfcon.on(Tinkerforge.IPConnection.CALLBACK_CONNECTED,
-            function (connectReason) {
+        tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, (connectReason) => {
                 this.log.info('Connected to Host 1');
 
-                setTimeout(function () {
+                setTimeout(() => {
                     this.log.info('Disconnect Host 1');
                     tfcon.disconnect();
                 }, 30000);
@@ -165,8 +164,8 @@ if (module.parent) {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
      */
-    module.exports = (options) => new Template(options);
+    module.exports = (options) => new ioTinkerforge(options);
 } else {
     // otherwise start the instance directly
-    new Tinkerforge();
+    new ioTinkerforge();
 }
