@@ -110,6 +110,7 @@ class Tinkerforge extends utils.Adapter {
         this.tfcon.on(tf.IPConnection.CALLBACK_ENUMERATE, (uid, connectedUid, position, hardwareVersion, firmwareVersion, deviceIdentifier, enumerationType) => {
             // Print incoming enumeration
             this.log.info('UID:               '+uid);
+            this.log.info('UID (decoded):     '+tf.Device.base58Decode(uid));
             this.log.info('Enumeration Type:  '+enumerationType);
 
             if(enumerationType === tf.IPConnection.ENUMERATION_TYPE_DISCONNECTED) {
