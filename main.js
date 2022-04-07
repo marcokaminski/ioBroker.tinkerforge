@@ -150,7 +150,7 @@ class Tinkerforge extends utils.Adapter {
         });
 
         setTimeout(() => {
-            this.log.info('Devices: ' + JSON.stringify(this.tfcon.devices));
+            this.log.info('Devices (keys): ' + this.tfcon.devices.keys);
         }, 3000);
     }
 
