@@ -150,19 +150,15 @@ class Tinkerforge extends utils.Adapter {
                     this.log.error('Error: ' + error);
                 });
             }
-
-            this.log.info('(enumeration) Devices: ' + util.inspect(this.tfcon.devices));
-            this.log.info('(enumeration) Devices["uid"]: ' + this.tfcon.devices[uid]);
-
         });
 
         setTimeout(() => {
             this.log.info('Devices: ' + util.inspect(this.tfcon.devices));
             this.log.info('Devices["1"]: ' + this.tfcon.devices['1']);
-            this.log.info('Devices["1"].readUID(): ' + this.tfcon.devices['1'].readUID());
+            this.log.info('Devices["1"].readUID(): ' + this.tfcon.devices['1'].readUID[0]());
             this.log.info('Devices["1"].deviceDisplayName: ' + this.tfcon.devices['1'].deviceDisplayName);
             this.log.info('Devices["143156"]: ' + this.tfcon.devices['143156']);
-            this.log.info('Devices["143156"].readUID(): ' + this.tfcon.devices['143156'].readUID());
+            this.log.info('Devices["143156"].readUID(): ' + this.tfcon.devices['143156'].readUID[0]());
             this.log.info('Devices["143156"].deviceDisplayName: ' + this.tfcon.devices['143156'].deviceDisplayName);
         }, 3000);
     }
