@@ -7,6 +7,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+const util = require('util');
 
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
@@ -150,7 +151,7 @@ class Tinkerforge extends utils.Adapter {
         });
 
         setTimeout(() => {
-            this.log.info('Devices: '+this.tfcon.devices);
+            this.log.info('Devices: ' + util.inspect(this.tfcon.devices));
         }, 3000);
     }
 
