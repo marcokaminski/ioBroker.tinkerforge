@@ -121,6 +121,9 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
+            const dev = this.tfcon.devices[uid];
+            this.log.info('Identity from Device: '+dev.getIdentity());
+    
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
 
