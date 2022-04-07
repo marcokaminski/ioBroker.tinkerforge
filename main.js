@@ -10,6 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
+const util = require('util');
 
 class Tinkerforge extends utils.Adapter {
     /**
@@ -147,11 +148,16 @@ class Tinkerforge extends utils.Adapter {
                     this.log.error('Error: ' + error);
                 });
             }
+
+            this.log.info('(enumeration) Devices: ' + util.inspect(this.tfcon.devices));
+            this.log.info('(enumeration) Devices["uid"]: ' + this.tfcon.devices[uid]);
+
         });
 
         setTimeout(() => {
-            this.log.info('Devices: ' + this.tfcon.devices);
+            this.log.info('Devices: ' + util.inspect(this.tfcon.devices));
             this.log.info('Devices["1"]: ' + this.tfcon.devices['1']);
+            this.log.info('Devices["Jyd"]: ' + this.tfcon.devices['Jyd']);
         }, 3000);
     }
 
