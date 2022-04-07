@@ -12,6 +12,11 @@ const utils = require('@iobroker/adapter-core');
 const tf = require('tinkerforge');
 const util = require('util');
 
+const brickletFactory = {
+    '13': tf.BrickMaster,
+    '297': tf.BrickletAirQuality
+};
+
 class Tinkerforge extends utils.Adapter {
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
@@ -123,7 +128,8 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Device Identifier: '+deviceIdentifier);
 
             if (deviceIdentifier === 297) {
-                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
+//                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
+                const bricklet = new brickletFactory[deviceIdentifier](uid, this.tfcon);
 
                 this.log.info('deviceDisplayName: ' + bricklet.deviceDisplayName);
 
