@@ -151,9 +151,7 @@ class Tinkerforge extends utils.Adapter {
 
         setTimeout(() => {
             this.log.info('Devices: ' + this.tfcon.devices);
-            for (const prop in this.tfcon.devices) {
-                console.log('o.' + prop + ' = ' + this.tfcon.devices[prop]);
-            }
+            this.log.info('Devices["1"]: ' + this.tfcon.devices['1']);
         }, 3000);
     }
 
