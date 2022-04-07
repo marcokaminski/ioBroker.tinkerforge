@@ -150,7 +150,10 @@ class Tinkerforge extends utils.Adapter {
         });
 
         setTimeout(() => {
-            this.log.info('Devices: ' + console.dir(this.tfcon.devices, {colors: true }));
+            this.log.info('Devices: ' + this.tfcon.devices);
+            for (const prop in this.tfcon.devices) {
+                console.log('o.' + prop + ' = ' + this.tfcon.devices[prop]);
+            }
         }, 3000);
     }
 
