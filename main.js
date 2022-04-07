@@ -125,6 +125,8 @@ class Tinkerforge extends utils.Adapter {
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
 
+                this.log.info('deviceDisplayName: ' + bricklet.deviceDisplayName);
+
                 bricklet.getAllValues((iaqIndex, iaqIndexAccuracy, temperature, humidity, airPressure) => {
                     this.log.info('IAQ Index: ' + iaqIndex);
 
@@ -157,7 +159,11 @@ class Tinkerforge extends utils.Adapter {
         setTimeout(() => {
             this.log.info('Devices: ' + util.inspect(this.tfcon.devices));
             this.log.info('Devices["1"]: ' + this.tfcon.devices['1']);
-            this.log.info('Devices["Jyd"]: ' + this.tfcon.devices['Jyd']);
+            this.log.info('Devices["1"].readUID(): ' + this.tfcon.devices['1'].readUID());
+            this.log.info('Devices["1"].deviceDisplayName: ' + this.tfcon.devices['1'].deviceDisplayName);
+            this.log.info('Devices["143156"]: ' + this.tfcon.devices['143156']);
+            this.log.info('Devices["143156"].readUID(): ' + this.tfcon.devices['143156'].readUID());
+            this.log.info('Devices["143156"].deviceDisplayName: ' + this.tfcon.devices['143156'].deviceDisplayName);
         }, 3000);
     }
 
