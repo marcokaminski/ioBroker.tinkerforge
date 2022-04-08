@@ -168,14 +168,7 @@ class Tinkerforge extends utils.Adapter {
                     value.readUID((uid) => {
                         this.log.info('uid: ' + uid);
                         this.log.info('uid (enc): ' + base58.encode(uid));
-                        this.log.info('uid (dec): ' + base58Decode(uid));
-                    });
-                    this.log.info('readUID: ' + value.readUID());
-                    this.log.info('readUID-length: ' + value.readUID.length);
-                    Object.entries(value.readUID).forEach(([key, value]) => {
-                        this.log.info('key: ' + key);
-                        this.log.info('value: ' + value);
-                        this.log.info('value: ' + util.inspect(value));
+                        this.log.info('uid (dec): ' + base58.decode(uid));
                     });
                 }
             });
