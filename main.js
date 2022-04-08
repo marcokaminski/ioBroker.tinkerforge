@@ -166,6 +166,7 @@ class Tinkerforge extends utils.Adapter {
                 this.log.info('value: ' + util.inspect(value));
                 if ( typeof value.readUID !== 'undefined') {
                     this.log.info('readUID-length: ' + value.readUID.length);
+                    this.log.info('readUID[0](): ' + value.readUID[0]());
                 }
             });
 /*
