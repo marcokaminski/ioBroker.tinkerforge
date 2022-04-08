@@ -10,6 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
+const base58 = require('base-58');
 const util = require('util');
 
 const brickletFactory = {
@@ -165,8 +166,9 @@ class Tinkerforge extends utils.Adapter {
                 this.log.info('value: ' + util.inspect(value));
                 if ( typeof value.readUID !== 'undefined') {
                     value.readUID((uid) => {
-                        this.log.info('uid: ' + uid);                        
-                        this.log.info('uid: ' + tf.base58Decode(uid));
+                        this.log.info('uid: ' + uid);
+                        this.log.info('uid (enc): ' + base58.encode(uid));
+                        this.log.info('uid (dec): ' + base58Decode(uid));
                     });
                     this.log.info('readUID: ' + value.readUID());
                     this.log.info('readUID-length: ' + value.readUID.length);

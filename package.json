@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^1.0.3",
+    "base-58": "0.0.1",
     "tinkerforge": "^2.1.33"
   },
   "devDependencies": {
