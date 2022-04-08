@@ -164,7 +164,7 @@ class Tinkerforge extends utils.Adapter {
                 this.log.info('value: ' + value);
                 this.log.info('value: ' + util.inspect(value));
                 if ( typeof value.readUID !== 'undefined') {
-                    this.log.info('readUID: ' + value.readUID);
+                    this.log.info('readUID: ' + value.readUID());
                     this.log.info('readUID-length: ' + value.readUID.length);
                     Object.entries(value.readUID).forEach(([key, value]) => {
                         this.log.info('key: ' + key);
