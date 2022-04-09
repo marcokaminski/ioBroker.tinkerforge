@@ -127,6 +127,7 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
+            this.factory.log = this.log;
             this.factory.registerDevice(deviceIdentifier, uid, connectedUid, position);
 /*
             if (deviceIdentifier === 297) {
