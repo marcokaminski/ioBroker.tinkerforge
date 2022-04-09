@@ -19,7 +19,7 @@ class TinkerforgeFactory {
         this.log = log;
         this.tfcon = tfcon;
 
-        this.log.info('TinkerforgeFactory created');
+        console.log('TinkerforgeFactory created');
     }
 
     registerDevice (deviceIdentifier, uid, connectedUid, position, log) {

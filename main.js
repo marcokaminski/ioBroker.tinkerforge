@@ -128,7 +128,7 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Device Identifier: '+deviceIdentifier);
 
             this.factory.registerDevice(deviceIdentifier, uid, connectedUid, position, this.log);
-/*
+            /*
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
 
@@ -157,7 +157,7 @@ class Tinkerforge extends utils.Adapter {
                     this.log.error('Error: ' + error);
                 });
             }
-*/
+            */
         });
     }
 

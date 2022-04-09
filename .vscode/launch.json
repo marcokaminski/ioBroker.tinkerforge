@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "name": "http://192.168.4.46:8081",
+            "request": "launch",
+            "url": "http://192.168.4.46:8081"
+        }
+    ]
+}
