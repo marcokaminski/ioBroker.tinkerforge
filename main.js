@@ -10,7 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
-const factory = require('./tinkerforgeFactory');
+const TinkerforgeFactory = require('./tinkerforgeFactory');
 
 class Tinkerforge extends utils.Adapter {
     /**
@@ -37,7 +37,7 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Disconnected from ' + this.config.ip);
         });
 
-        this.factory = new factory(this.log, this.tfcon);
+        this.factory = new TinkerforgeFactory(this.log, this.tfcon);
     }
 
     /**

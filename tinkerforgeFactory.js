@@ -14,7 +14,7 @@ class TinkerforgeFactory {
             }
         };
         
-        this.out = log;
+        this.log = log;
         this.tfcon = tfcon;
     }
 
@@ -23,17 +23,17 @@ class TinkerforgeFactory {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
             this.deviceFactory[deviceIdentifier].readAllData(uid, device);
         } else {
-            this.out.warn('unknown Device Identifier');
+            this.log.warn('unknown Device Identifier');
         }
 
     }
 
     readMasterData(uid, device) {
-        this.out.info('(' + uid + ') readMasterData :' + util.inspect(device));
+        this.log.info('(' + uid + ') readMasterData :' + util.inspect(device));
     }
     
     readAirQualityData(uid, device) {
-        this.out.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
+        this.log.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
     }
    
 }
