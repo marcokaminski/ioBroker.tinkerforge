@@ -24,21 +24,24 @@ class TinkerforgeFactory {
 
     registerDevice (deviceIdentifier, uid, connectedUid, position, log) {
         this.log = log;
-        
+
         if (this.deviceFactory[deviceIdentifier] !== undefined) {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
-            this.deviceFactory[deviceIdentifier].readAllData(uid, device);
+            this.deviceFactory[deviceIdentifier].readAllData(uid, device, this.log);
         } else {
             this.log.info('unknown Device Identifier');
         }
 
     }
 
-    readMasterData(uid, device) {
+    readMasterData(uid, device, log) {
+        this.log = log;
         this.log.info('(' + uid + ') readMasterData :' + util.inspect(device));
     }
     
-    readAirQualityData(uid, device) {
+    readAirQualityData(uid, device, log) {
+        this.log = log;
+
         this.log.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
     }
    
