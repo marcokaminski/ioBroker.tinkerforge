@@ -29,7 +29,7 @@ function getMasterData(brick) {
 }
 
 function getAirQualityData(bricklet) {
-    console.log('getAirQualityData: ' + util.inspect((bricklet));
+    console.log('getAirQualityData: ' + util.inspect(bricklet));
 }
 
 class Tinkerforge extends utils.Adapter {
