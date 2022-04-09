@@ -1,7 +1,10 @@
+'use strict';
+
 const Tinkerforge = require('tinkerforge');
 const util = require('util');
 
 class TinkerforgeFactory {
+    
     constructor(log, tfcon) {
         this.deviceFactory = {
             '13': {

@@ -26,6 +26,8 @@ class Tinkerforge extends utils.Adapter {
         this.on('stateChange', this.onStateChange.bind(this));
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
+
+        this.factory = {};
     }
 
     /**
