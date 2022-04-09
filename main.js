@@ -142,9 +142,12 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
-            const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
-            brickletFactory[deviceIdentifier].registerCallbacks(bricklet, uid, this.log);
-
+            if (brickletFactory[deviceIdentifier] !== 'undefined') {
+                const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
+                brickletFactory[deviceIdentifier].registerCallbacks(bricklet, uid, this.log);
+            } else {
+                this.log.warn('unknown Device Identifier');
+            }
 /*
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
