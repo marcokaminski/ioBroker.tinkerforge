@@ -16,20 +16,20 @@ const util = require('util');
 const brickletFactory = {
     '13': {
         'build': tf.BrickMaster,
-        'getData': getMasterData
+        'registerCallbacks': getMasterData
     },
     '297': {
         'build': tf.BrickletAirQuality,
-        'getData': getAirQualityData
+        'registerCallbacks': getAirQualityData
     }
 };
 
-function getMasterData(brick, log) {
-    log.info('getMasterData :' + util.inspect(brick));
+function getMasterData(brick, uid, log) {
+    log.info('(' + uid + ') getMasterData :' + util.inspect(brick));
 }
 
-function getAirQualityData(bricklet, log) {
-    log.info('getAirQualityData: ' + util.inspect(bricklet));
+function getAirQualityData(bricklet, uid, log) {
+    log.info('(' + uid + ') getAirQualityData: ' + util.inspect(bricklet));
 }
 
 class Tinkerforge extends utils.Adapter {
@@ -142,10 +142,12 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
+            const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
+            brickletFactory[deviceIdentifier].registerCallbacks(bricklet, uid, this.log);
+
+/*
             if (deviceIdentifier === 297) {
-//                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
-                const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
-                brickletFactory[deviceIdentifier].getData(bricklet, this.log);
+                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
 
                 this.log.info('deviceDisplayName: ' + bricklet.deviceDisplayName);
 
@@ -195,8 +197,9 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Devices["143156"]: ' + this.tfcon.devices['143156']);
 //            this.log.info('Devices["143156"].readUID(): ' + this.tfcon.devices['143156'].readUID[0]());
             this.log.info('Devices["143156"].deviceDisplayName: ' + this.tfcon.devices['143156'].deviceDisplayName);
-*/
+
         }, 3000);
+*/
     }
 
     /**
