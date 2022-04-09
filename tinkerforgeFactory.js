@@ -26,17 +26,17 @@ class TinkerforgeFactory {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
             this.deviceFactory[deviceIdentifier].readAllData(uid, device);
         } else {
-            this.log.warn('unknown Device Identifier');
+            console.log('unknown Device Identifier');
         }
 
     }
 
     readMasterData(uid, device) {
-        this.log.info('(' + uid + ') readMasterData :' + util.inspect(device));
+        console.log('(' + uid + ') readMasterData :' + util.inspect(device));
     }
     
     readAirQualityData(uid, device) {
-        this.log.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
+        console.log('(' + uid + ') readAirQualityData: ' + util.inspect(device));
     }
    
 }
