@@ -64,7 +64,7 @@ class Tinkerforge extends utils.Adapter {
         this.subscribeStates('*');
 
         this.tfcon = new tf.IPConnection();
-        this.factory = new TinkerforgeFactory(this.log, this.tfcon);
+        this.factory = new TinkerforgeFactory(this.tfcon);
 
         this.tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, () => {
             this.log.info('Connected to ' + this.config.ip);
@@ -127,7 +127,7 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
-            this.factory.registerDevice(deviceIdentifier, uid, connectedUid, position, this.log);
+            this.factory.registerDevice(deviceIdentifier, uid, connectedUid, position);
             /*
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);

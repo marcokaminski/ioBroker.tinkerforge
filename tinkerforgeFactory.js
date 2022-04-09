@@ -4,7 +4,7 @@ const Tinkerforge = require('tinkerforge');
 const util = require('util');
 
 class TinkerforgeFactory {
-    constructor(log, tfcon) {
+    constructor(tfcon) {
         this.deviceFactory = {
             '13': {
                 'buildObject': Tinkerforge.BrickMaster,
@@ -16,33 +16,25 @@ class TinkerforgeFactory {
             }
         };
         
-        this.log = log;
         this.tfcon = tfcon;
-
-        console.log('TinkerforgeFactory created');
     }
 
-    registerDevice (deviceIdentifier, uid, connectedUid, position, log) {
-        this.log = log;
-
+    registerDevice (deviceIdentifier, uid, connectedUid, position) {
         if (this.deviceFactory[deviceIdentifier] !== undefined) {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
-            this.deviceFactory[deviceIdentifier].readAllData(uid, device, this.log);
+            this.deviceFactory[deviceIdentifier].readAllData(uid, device);
         } else {
-            this.log.info('unknown Device Identifier');
+            console.log('unknown Device Identifier');
         }
 
     }
 
-    readMasterData(uid, device, log) {
-        this.log = log;
-        this.log.info('(' + uid + ') readMasterData :' + util.inspect(device));
+    readMasterData(uid, device) {
+        console.log('(' + uid + ') readMasterData :' + util.inspect(device));
     }
     
-    readAirQualityData(uid, device, log) {
-        this.log = log;
-
-        this.log.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
+    readAirQualityData(uid, device) {
+        console.log('(' + uid + ') readAirQualityData: ' + util.inspect(device));
     }
    
 }
