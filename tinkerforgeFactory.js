@@ -22,7 +22,9 @@ class TinkerforgeFactory {
         this.log.info('TinkerforgeFactory created');
     }
 
-    registerDevice (deviceIdentifier, uid, connectedUid, position) {
+    registerDevice (deviceIdentifier, uid, connectedUid, position, log) {
+        this.log = log;
+        
         if (this.deviceFactory[deviceIdentifier] !== undefined) {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
             this.deviceFactory[deviceIdentifier].readAllData(uid, device);
