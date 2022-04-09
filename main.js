@@ -24,12 +24,12 @@ const brickletFactory = {
     }
 };
 
-function getMasterData(brick) {
-    console.log('getMasterData :' + util.inspect(brick));
+function getMasterData(brick, log) {
+    log.info('getMasterData :' + util.inspect(brick));
 }
 
-function getAirQualityData(bricklet) {
-    console.log('getAirQualityData: ' + util.inspect(bricklet));
+function getAirQualityData(bricklet, log) {
+    log.info('getAirQualityData: ' + util.inspect(bricklet));
 }
 
 class Tinkerforge extends utils.Adapter {
@@ -145,7 +145,7 @@ class Tinkerforge extends utils.Adapter {
             if (deviceIdentifier === 297) {
 //                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
                 const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
-                brickletFactory[deviceIdentifier].getData(bricklet);
+                brickletFactory[deviceIdentifier].getData(bricklet, this.log);
 
                 this.log.info('deviceDisplayName: ' + bricklet.deviceDisplayName);
 
