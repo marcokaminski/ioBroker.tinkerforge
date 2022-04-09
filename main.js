@@ -200,6 +200,7 @@ class Tinkerforge extends utils.Adapter {
 
         }, 3000);
 */
+        });
     }
 
     /**
