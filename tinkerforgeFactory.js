@@ -4,7 +4,6 @@ const Tinkerforge = require('tinkerforge');
 const util = require('util');
 
 class TinkerforgeFactory {
-    
     constructor(log, tfcon) {
         this.deviceFactory = {
             '13': {
@@ -19,6 +18,8 @@ class TinkerforgeFactory {
         
         this.log = log;
         this.tfcon = tfcon;
+
+        log.info('TinkerforgeFactory created');
     }
 
     registerDevice (deviceIdentifier, uid, connectedUid, position) {
@@ -26,17 +27,17 @@ class TinkerforgeFactory {
             const device = new this.deviceFactory[deviceIdentifier].buildObject(uid, this.tfcon);
             this.deviceFactory[deviceIdentifier].readAllData(uid, device);
         } else {
-            console.log('unknown Device Identifier');
+            this.log.info('unknown Device Identifier');
         }
 
     }
 
     readMasterData(uid, device) {
-        console.log('(' + uid + ') readMasterData :' + util.inspect(device));
+        this.log.info('(' + uid + ') readMasterData :' + util.inspect(device));
     }
     
     readAirQualityData(uid, device) {
-        console.log('(' + uid + ') readAirQualityData: ' + util.inspect(device));
+        this.log.info('(' + uid + ') readAirQualityData: ' + util.inspect(device));
     }
    
 }
