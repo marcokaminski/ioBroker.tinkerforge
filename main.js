@@ -1,5 +1,6 @@
 'use strict';
 
+/** Start remote-Debugging for VS-Code node --inspect-brk=0.0.0.0:9229 main.js --debug */
 /*
  * Created with @iobroker/create-adapter v1.16.0
  */
