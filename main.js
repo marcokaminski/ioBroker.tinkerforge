@@ -27,7 +27,7 @@ class Tinkerforge extends utils.Adapter {
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
 
-        this.log.info('Tinkerforge-Adapter created an log is alive');
+        this.tfcon = {};
         this.factory = {};
     }
 
@@ -64,6 +64,8 @@ class Tinkerforge extends utils.Adapter {
         this.subscribeStates('*');
 
         this.tfcon = new tf.IPConnection();
+        this.factory = new TinkerforgeFactory(this.log, this.tfcon);
+
         this.tfcon.on(tf.IPConnection.CALLBACK_CONNECTED, () => {
             this.log.info('Connected to ' + this.config.ip);
             this.enumerateBricklets();
@@ -72,8 +74,6 @@ class Tinkerforge extends utils.Adapter {
         this.tfcon.on(tf.IPConnection.CALLBACK_DISCONNECTED, () => {
             this.log.info('Disconnected from ' + this.config.ip);
         });
-
-        this.factory = new TinkerforgeFactory(this.log, this.tfcon);
 
         // connect to Tinkerforge Master-Brick
         this.connectToBrick(this.config.autoReconnect);
