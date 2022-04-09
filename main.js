@@ -14,9 +14,23 @@ const base58 = require('base-58');
 const util = require('util');
 
 const brickletFactory = {
-    '13': tf.BrickMaster,
-    '297': tf.BrickletAirQuality
+    '13': {
+        'build': tf.BrickMaster,
+        'getData': getMasterData
+    },
+    '297': {
+        'build': tf.BrickletAirQuality,
+        'getData': getAirQualityData
+    }
 };
+
+function getMasterData(brick) {
+    console.log('getMasterData :' + util.inspect(brick));
+}
+
+function getAirQualityData(bricklet) {
+    console.log('getAirQualityData: ' + util.inspect((bricklet));
+}
 
 class Tinkerforge extends utils.Adapter {
     /**
@@ -130,7 +144,8 @@ class Tinkerforge extends utils.Adapter {
 
             if (deviceIdentifier === 297) {
 //                const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
-                const bricklet = new brickletFactory[deviceIdentifier](uid, this.tfcon);
+                const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
+                brickletFactory[deviceIdentifier].getData(bricklet);
 
                 this.log.info('deviceDisplayName: ' + bricklet.deviceDisplayName);
 
