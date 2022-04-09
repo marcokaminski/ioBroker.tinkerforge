@@ -10,27 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const tf = require('tinkerforge');
-const base58 = require('base-58');
-const util = require('util');
-
-const brickletFactory = {
-    '13': {
-        'build': tf.BrickMaster,
-        'registerCallbacks': getMasterData
-    },
-    '297': {
-        'build': tf.BrickletAirQuality,
-        'registerCallbacks': getAirQualityData
-    }
-};
-
-function getMasterData(brick, uid, log) {
-    log.info('(' + uid + ') getMasterData :' + util.inspect(brick));
-}
-
-function getAirQualityData(bricklet, uid, log) {
-    log.info('(' + uid + ') getAirQualityData: ' + util.inspect(bricklet));
-}
+const factory = require('./tinkerforgeFactory');
 
 class Tinkerforge extends utils.Adapter {
     /**
@@ -56,6 +36,8 @@ class Tinkerforge extends utils.Adapter {
         this.tfcon.on(tf.IPConnection.CALLBACK_DISCONNECTED, () => {
             this.log.info('Disconnected from ' + this.config.ip);
         });
+
+        this.factory = new factory(this.log, this.tfcon);
     }
 
     /**
@@ -142,13 +124,7 @@ class Tinkerforge extends utils.Adapter {
             this.log.info('Firmware Version:  '+firmwareVersion);
             this.log.info('Device Identifier: '+deviceIdentifier);
 
-            
-            if (brickletFactory[deviceIdentifier] !== undefined) {
-                const bricklet = new brickletFactory[deviceIdentifier].build(uid, this.tfcon);
-                brickletFactory[deviceIdentifier].registerCallbacks(bricklet, uid, this.log);
-            } else {
-                this.log.warn('unknown Device Identifier');
-            }
+            this.factory.registerDevice(deviceIdentifier, uid, connectedUid, position);
 /*
             if (deviceIdentifier === 297) {
                 const bricklet = new tf.BrickletAirQuality(uid, this.tfcon);
@@ -178,31 +154,6 @@ class Tinkerforge extends utils.Adapter {
                     this.log.error('Error: ' + error);
                 });
             }
-        });
-
-        setTimeout(() => {
-            Object.entries(this.tfcon.devices).forEach(([key, value]) => {
-                this.log.info('key: ' + key);
-                this.log.info('value: ' + value);
-                this.log.info('value: ' + util.inspect(value));
-                if ( typeof value.readUID !== 'undefined') {
-                    value.readUID((uid) => {
-                        this.log.info('uid: ' + uid);
-                        this.log.info('uid (enc): ' + base58.encode(uid));
-                        this.log.info('uid (dec): ' + base58.decode(uid));
-                    });
-                }
-            });
-/*
-            this.log.info('Devices: ' + util.inspect(this.tfcon.devices));
-            this.log.info('Devices["1"]: ' + this.tfcon.devices['1']);
-//            this.log.info('Devices["1"].readUID(): ' + this.tfcon.devices['1'].readUID[0]());
-            this.log.info('Devices["1"].deviceDisplayName: ' + this.tfcon.devices['1'].deviceDisplayName);
-            this.log.info('Devices["143156"]: ' + this.tfcon.devices['143156']);
-//            this.log.info('Devices["143156"].readUID(): ' + this.tfcon.devices['143156'].readUID[0]());
-            this.log.info('Devices["143156"].deviceDisplayName: ' + this.tfcon.devices['143156'].deviceDisplayName);
-
-        }, 3000);
 */
         });
     }
